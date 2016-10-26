@@ -10,7 +10,7 @@ height = 1.75
 weight = 80.5
 bmi = weight/(height*height)
 if bmi < 18.5:
-   print('guoqing')
+   print('过轻')
 elif bmi > 18.5 and bmi < 25.0:
     print('正常')
 elif bmi > 25.0 and bmi < 28.0:
