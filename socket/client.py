@@ -9,7 +9,7 @@ import select
 import time
 import wx
  
-#main function
+
 
     
 class Chatroom(wx.Frame):
@@ -24,9 +24,10 @@ class Chatroom(wx.Frame):
         self.button2.Bind(wx.EVT_BUTTON, self.Close)
         self.button3 =wx.Button(self.panel, -1, "Connect", pos =(240,500), size =(40,20))
         self.button3.Bind(wx.EVT_BUTTON, self.Connect)
-        self.button4 =wx.Button(self.panel, -1, "reccept", pos =(180,500), size =(40,20))
-        self.button4.Bind(wx.EVT_BUTTON, self.Rccept)
+        self.button4 =wx.Button(self.panel, -1, "receive", pos =(180,500), size =(40,20))
+        self.button4.Bind(wx.EVT_BUTTON, self.Receive)
 
+    #try to connect server
     def Connect(self, event):
         host = "localhost"
         port = 5000
@@ -41,24 +42,26 @@ class Chatroom(wx.Frame):
             sys.exit()
      
         self.text.AppendText('Connected to remote host. Start sending messages')
-        
-    def Rccept(self, event):
+
+    #receive the message from other client   
+    def Receive(self, event):
         data =s.recv(1024)
         self.text.AppendText(data)
 
+    #send message to anther
     def Send(self, event):
         data =self.text2.GetValue()
         #user entered a message
         self.text.AppendText(data)
         s.send(data)
         
-        
+    #close the socket    
     def Close(self, event):
         s.close()
             
 
 
-
+#the main function
 if __name__ == "__main__":
     app = wx.PySimpleApp()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
